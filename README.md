@@ -1,4 +1,4 @@
-# Fullstack TypeScript eCommerce Template
+# Fullstack TypeScript eCommerce Template🛒 - Documentation📄
 
 > A modern fullstack TypeScript eCommerce template with AI‑powered recommendations (Recombee), custom chatbot, Sanity CMS, Auth0 authentication, full dashboard, and a Node.js API. Built for speed, scalability, and developer experience.
 
