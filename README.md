@@ -1,6 +1,6 @@
-# Fullstack eCommerce Template
+# Fullstack TypeScript eCommerce Template
 
-> A modern fullstack eCommerce template with AI-powered recommendations, custom chatbot, Sanity CMS, Auth0 authentication, full dashboard, and a Node.js API. Built for speed, scalability, and developer experience.
+> A modern fullstack TypeScript eCommerce template with AI‑powered recommendations (Recombee), custom chatbot, Sanity CMS, Auth0 authentication, full dashboard, and a Node.js API. Built for speed, scalability, and developer experience.
 
 ---
 
@@ -13,8 +13,9 @@
 - [Getting Started](#getting-started)  
 - [Environment Variables](#environment-variables)  
   - [Backend](#backend)  
-  - [Frontend](#frontend)  
-  - [Sanity Studio](#sanity-studio)  
+  - [Ecommerce (frontend & Sanity)](#ecommerce-frontend--sanity)  
+- [Sanity Client Config (frontend)](#sanity-client-config-frontend)  
+- [Backend package.json (excerpt)](#backend-packagejson-excerpt)  
 - [Scripts](#scripts)  
 - [Contributing](#contributing)  
 - [License](#license)  
@@ -23,15 +24,16 @@
 
 ## Repositories
 
-- **Frontend**: https://github.com/yourname/frontend  
-- **Backend**: https://github.com/yourname/backend  
-- **CMS (Sanity Studio)**: https://github.com/yourname/studio  
+- **Ecommerce (frontend + Sanity)**  
+  https://github.com/VitoMedlej/ecommerce-site-template  
+- **Backend**  
+  https://github.com/VitoMedlej/express-ts-backend  
 
 ---
 
 ## Features
 
-- 🛍️ AI‑powered product recommendations  
+- 🛍️ AI‑powered product recommendations (Recombee)  
 - 💬 Custom chatbot for customer support  
 - ✍️ Sanity CMS for content management  
 - 🔒 Auth0 authentication (email/password & social)  
@@ -44,12 +46,13 @@
 
 ## Tech Stack
 
-- **Frontend**: React, Next.js, TypeScript  
-- **Backend**: Node.js, Express, TypeScript  
+- **All code in TypeScript**  
+- **Frontend**: React, Next.js  
+- **Backend**: Node.js, Express  
 - **CMS**: Sanity v3  
 - **Auth**: Auth0  
 - **Database**: MongoDB Atlas  
-- **AI Tools**: OpenAI, Recombee (or your choice)  
+- **AI Tools**: Recombee  
 
 ---
 
@@ -60,47 +63,58 @@
 - MongoDB Atlas account  
 - Auth0 account  
 - Sanity account  
-- OpenAI/Recombee API keys (for AI features)  
+- Recombee account & API key  
 
 ---
 
 ## Getting Started
 
-1. **Clone each repo**  
+1. **Clone repos**  
    ```bash
-   git clone https://github.com/yourname/frontend.git
-   git clone https://github.com/yourname/backend.git
-   git clone https://github.com/yourname/studio.git
+   git clone https://github.com/VitoMedlej/ecommerce-site-template.git
+   git clone https://github.com/VitoMedlej/express-ts-backend.git
 Copy & fill .env
-In each folder, run:
 
 bash
 Copy
 Edit
+# Ecommerce (frontend & Sanity)
+cd ecommerce-site-template
 cp .env.example .env
-then update values with your own keys/URLs.
+
+# Backend
+cd ../express-ts-backend
+cp .env.example .env
+Fill in your own keys/URLs.
 
 Install dependencies
 
 bash
 Copy
 Edit
-cd frontend && npm install
-cd backend  && npm install
-cd studio   && npm install
-Run development servers
+# Ecommerce
+cd ../ecommerce-site-template
+npm install
+
+# Backend
+cd ../express-ts-backend
+npm install
+Run dev servers
 
 bash
 Copy
 Edit
 # Frontend
-cd frontend && npm run dev
-
-# Backend
-cd backend && npm run dev
+cd ecommerce-site-template
+npm run dev
 
 # Sanity Studio
-cd studio && npm run dev
+cd ecommerce-site-template/sanity
+npm run dev
+
+# Backend
+cd ../../express-ts-backend
+npm run dev
 Open in browser
 
 Frontend: http://localhost:3000
@@ -110,9 +124,9 @@ Backend API: http://localhost:8080
 Sanity Studio: http://localhost:3333
 
 Environment Variables
-⚠️ Make sure each repo’s .env is listed in its .gitignore!
+⚠️ Ensure each repo’s .env is in .gitignore
 
-🖥️ Backend (backend/.env.example)
+Backend (express-ts-backend/.env.example)
 env
 Copy
 Edit
@@ -137,46 +151,77 @@ MONGODB_CONNECTION="mongodb+srv://user:pass@cluster0.ewclu.net/?retryWrites=true
 MONGODB_CONNECTION_READONLY="mongodb+srv://user:pass@cluster0.dk2g9.mongodb.net/?retryWrites=true&w=majority&appName=NewCluster"
 MONGO_DB_NAME="your_db_name"
 
-# Auth0 (if used)
+# Auth0
 AUTH0_DOMAIN="your-auth0-domain"
 AUTH0_AUDIENCE="your-auth0-audience"
 
-# AI / Recommendations
-OPENAI_API_KEY="your_openai_api_key"
+# Recombee
 RECOMBEE_API_KEY="your_recombee_api_key"
 RECOMBEE_DATABASE_ID="your_recombee_database_id"
-🌐 Frontend (frontend/.env.example)
+Ecommerce (frontend & Sanity) (ecommerce-site-template/.env.example)
 env
 Copy
 Edit
-# API
+# Frontend
 NEXT_PUBLIC_API_URL="http://localhost:8080/api"
-
-# Auth0
 NEXT_PUBLIC_AUTH0_DOMAIN="your-auth0-domain"
 NEXT_PUBLIC_AUTH0_CLIENT_ID="your-auth0-client-id"
-
-# Sanity
 NEXT_PUBLIC_SANITY_PROJECT_ID="your_sanity_project_id"
 NEXT_PUBLIC_SANITY_DATASET="production"
+NEXT_PUBLIC_SANITY_TOKEN="your_sanity_token"
+NEXT_PUBLIC_SANITY_USE_CDN="true"
+NEXT_PUBLIC_SANITY_API_VERSION="2024-01-01"
 
-# AI Features
-NEXT_PUBLIC_OPENAI_API_KEY="your_openai_api_key"
-✍️ Sanity Studio (studio/.env.example)
-env
-Copy
-Edit
+# Sanity Studio
 SANITY_PROJECT_ID="your_sanity_project_id"
 SANITY_DATASET="production"
+SANITY_USE_CDN="true"
+SANITY_API_VERSION="2024-01-01"
 SANITY_API_TOKEN="your_sanity_api_token"
+Sanity Client Config (frontend)
+ts
+Copy
+Edit
+// lib/sanityClient.ts
+import { createClient } from 'next-sanity';
+
+export const sanityClient = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "8hww7tr9",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  useCdn: process.env.NEXT_PUBLIC_SANITY_USE_CDN === "true",
+  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-01-01",
+  token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
+});
+Backend package.json (excerpt)
+json
+Copy
+Edit
+// express-ts-backend/package.json
+{
+  "name": "express-typescript-boilerplate",
+  "version": "1.0.14",
+  "description": "An Express boilerplate backend",
+  "author": "Edwin Hernandez",
+  "repository": "edwinhern/express-typescript-2024"
+}
 Scripts
-Each repo defines its own package.json scripts. See individual READMEs for details:
+See each repo’s package.json:
 
-Frontend: npm run dev, npm run build, npm run start
+Ecommerce
 
-Backend: npm run dev, npm run build, npm run start
+npm run dev
 
-Studio: npm run dev, npm run deploy
+npm run build
+
+npm run start
+
+Backend
+
+npm run dev
+
+npm run build
+
+npm run start
 
 Contributing
 Fork the repo.
@@ -194,6 +239,3 @@ Copy
 Edit
 git commit -m "feat: add awesome feature"
 Push & open a PR.
-
-License
-MIT © [Your Name]
