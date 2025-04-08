@@ -27,8 +27,9 @@
 - **Ecommerce (frontend + Sanity)**  
   https://github.com/VitoMedlej/ecommerce-site-template  
 - **Backend**  
-  https://github.com/VitoMedlej/express-ts-backend  
-
+  https://github.com/VitoMedlej/express-ts-backend
+- **Dashboard**    
+  https://github.com/VitoMedlej/ecommerce-dashboard-template
 ---
 
 ## Features
